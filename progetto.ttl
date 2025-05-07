@@ -1,0 +1,2257 @@
+@prefix : <http://www.music.com/brani/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.music.com/brani/> .
+
+<http://www.music.com/brani> rdf:type owl:Ontology ;
+                              <http://purl.org/dc/elements/1.1/creator> "Lorenzo Rosales Vasquez" ;
+                              <http://purl.org/dc/elements/1.1/date> "2025-02-14" ;
+                              <http://purl.org/dc/elements/1.1/description> "Un'ontologia per modellare canzoni, artisti e album" ;
+                              <http://purl.org/dc/elements/1.1/title> "Ontologia canzoni" ;
+                              :vann:preferredNamespacePrefix "oc" ;
+                              :vann:preferredNamespaceUri "http://www.music.com/brani#" ;
+                              rdfs:label "Ontologia canzoni" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/creator
+<http://purl.org/dc/elements/1.1/creator> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/date
+<http://purl.org/dc/elements/1.1/date> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+<http://purl.org/dc/elements/1.1/description> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+<http://purl.org/dc/elements/1.1/title> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.music.com/brani/vann:preferredNamespacePrefix
+:vann:preferredNamespacePrefix rdf:type owl:AnnotationProperty .
+
+
+###  http://www.music.com/brani/vann:preferredNamespaceUri
+:vann:preferredNamespaceUri rdf:type owl:AnnotationProperty .
+
+
+###  http://www.music.com/braniw3.org/2000/01/rdf-schema#comment
+<http://www.music.com/braniw3.org/2000/01/rdf-schema#comment> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.music.com/braniw3.org/2000/01/rdf-schema#label
+<http://www.music.com/braniw3.org/2000/01/rdf-schema#label> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#label
+rdfs:label rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.music.com/braniw3.org/1999/02/22-rdf-syntax-ns#langString
+<http://www.music.com/braniw3.org/1999/02/22-rdf-syntax-ns#langString> rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.music.com/brani/albumConAlmenoDueCanzoni
+:albumConAlmenoDueCanzoni rdf:type owl:ObjectProperty ;
+                          rdfs:domain :Album ;
+                          rdfs:range :Canzone ;
+                          rdfs:comment "Un album contiene almeno due canzoni"@it ;
+                          rdfs:label "AlbumConAlmenoDueCanzoni"@it .
+
+
+###  http://www.music.com/brani/albumDiGenere
+:albumDiGenere rdf:type owl:ObjectProperty ;
+               rdfs:domain :Album ;
+               rdfs:range :GenereMusicale ;
+               rdfs:comment "I generi di un album"@it ;
+               rdfs:label "albumDiGenere"@it .
+
+
+###  http://www.music.com/brani/artistaConAlmenoUnaCanzone
+:artistaConAlmenoUnaCanzone rdf:type owl:ObjectProperty ;
+                            rdfs:domain :Artista ;
+                            rdfs:range :Canzone ;
+                            rdfs:comment "Un artista, per essere tale, deve avere almeno una canzone"@it ;
+                            rdfs:label "ArtistaConAlmenoUnaCanzone"@it .
+
+
+###  http://www.music.com/brani/canzoneConAlmenoUnTesto
+:canzoneConAlmenoUnTesto rdf:type owl:ObjectProperty ;
+                         rdfs:domain :Canzone ;
+                         rdfs:range :Testo ;
+                         rdfs:comment "Ogni canzone deve avere almeno un testo"@it ;
+                         rdfs:label "CanzoneConAlmenoUnTesto"@it .
+
+
+###  http://www.music.com/brani/canzoneConGenere
+:canzoneConGenere rdf:type owl:ObjectProperty ,
+                           owl:FunctionalProperty ;
+                  rdfs:domain :Canzone ;
+                  rdfs:range :GenereMusicale ;
+                  rdfs:comment "Ogni canzone deve avere almeno un genere"@it ;
+                  rdfs:label "CanzoneConGenere"@it .
+
+
+###  http://www.music.com/brani/canzoneDiGenere
+:canzoneDiGenere rdf:type owl:ObjectProperty ;
+                 rdfs:domain :Canzone ;
+                 rdfs:range :GenereMusicale ;
+                 rdfs:comment "Una canzone appartiene ad un genere musicale"@it ;
+                 rdfs:label "canzoneDiGenere"@it .
+
+
+###  http://www.music.com/brani/contieneAlbum
+:contieneAlbum rdf:type owl:ObjectProperty ;
+               rdfs:domain :InsiemeAlbum ;
+               rdfs:range :Album ;
+               rdfs:comment "Insieme degli album di un artista"@it ;
+               rdfs:label "contieneAlbum"@it .
+
+
+###  http://www.music.com/brani/contieneCanzone
+:contieneCanzone rdf:type owl:ObjectProperty ,
+                          owl:TransitiveProperty ;
+                 rdfs:domain :Album ;
+                 rdfs:range :Canzone ;
+                 rdfs:comment "Un album contiene diverse canzoni"@it ;
+                 rdfs:label "contieneCanzone"@it .
+
+
+###  http://www.music.com/brani/contieneTesto
+:contieneTesto rdf:type owl:ObjectProperty ,
+                        owl:InverseFunctionalProperty ;
+               rdfs:domain :Canzone ;
+               rdfs:range :Testo ;
+               rdfs:comment "Una canzone deve contenere un testo"@it ;
+               rdfs:label "contieneTesto"@it .
+
+
+###  http://www.music.com/brani/haInsiemeAlbum
+:haInsiemeAlbum rdf:type owl:ObjectProperty ,
+                         owl:InverseFunctionalProperty ;
+                rdfs:domain :Artista ;
+                rdfs:range :InsiemeAlbum ;
+                rdfs:comment "Un artista ha un insieme di album"@it ;
+                rdfs:label "haInsiemeAlbum"@it .
+
+
+###  http://www.music.com/brani/linguaCanzone
+:linguaCanzone rdf:type owl:ObjectProperty ;
+               owl:propertyChainAxiom ( :canzoneConAlmenoUnTesto
+                                        :testoConAlmenoUnaLingua
+                                      ) ;
+               rdfs:comment "Se una canzone ha un testo e il testo è in una determinata lingua, allora la canzone è in quella lingua"@it ;
+               rdfs:label "linguaCanzone"@it .
+
+
+###  http://www.music.com/brani/scrittoInLingua
+:scrittoInLingua rdf:type owl:ObjectProperty ,
+                          owl:FunctionalProperty ;
+                 rdfs:domain :Testo ;
+                 rdfs:range :Lingua ;
+                 rdfs:comment "Ogni canzone è scritta in una lingua"@it ;
+                 rdfs:label "scrittoInLingua"@it .
+
+
+###  http://www.music.com/brani/testoConAlmenoUnaLingua
+:testoConAlmenoUnaLingua rdf:type owl:ObjectProperty ;
+                         rdfs:domain :Testo ;
+                         rdfs:range :Lingua ;
+                         rdfs:comment "Ogni testo deve essere almeno in una lingua"@it ;
+                         rdfs:label "TestoConAlmenoUnaLingua"@it .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.music.com/brani/dataDiUscita
+:dataDiUscita rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Canzone ;
+              rdfs:range xsd:string ;
+              rdfs:comment "DataUscita del'album o della canzone"@it ;
+              rdfs:label "dataDiUscita"@it .
+
+
+###  http://www.music.com/brani/haNome
+:haNome rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Artista ;
+        rdfs:range xsd:string ;
+        rdfs:comment "Nome vero dell'artista"@it ;
+        rdfs:label "haNome"@it .
+
+
+###  http://www.music.com/brani/haUnaDurata
+:haUnaDurata rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Canzone ;
+             rdfs:range xsd:string ;
+             rdfs:comment "Durata della canzone"@it ;
+             rdfs:label "haUnaDurata"@it .
+
+
+###  http://www.music.com/brani/hannoDiPubblicazione
+:hannoDiPubblicazione rdf:type owl:DatatypeProperty ;
+                      rdfs:domain <https://dbpedia.org/ontology/Album> ;
+                      rdfs:range xsd:decimal .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.org/ontology/mo/album
+<http://purl.org/ontology/mo/album> rdf:type owl:Class ;
+                                    owl:equivalentClass :Album ,
+                                                        <https://dbpedia.org/ontology/Album> ;
+                                    rdfs:comment "Allineamento con la classe Album"@it ;
+                                    rdfs:label "album"@it .
+
+
+###  http://purl.org/ontology/mo/singer
+<http://purl.org/ontology/mo/singer> rdf:type owl:Class ;
+                                     owl:equivalentClass :Artista ,
+                                                         <https://dbpedia.org/ontology/Singer> ;
+                                     rdfs:comment "Allineamento con la classe Cantante"@it ;
+                                     rdfs:label "singer"@it .
+
+
+###  http://purl.org/ontology/mo/track
+<http://purl.org/ontology/mo/track> rdf:type owl:Class ;
+                                    owl:equivalentClass :Canzone ,
+                                                        <https://dbpedia.org/ontology/Song> ;
+                                    rdfs:comment "Allineamento con la classe Canzone"@it ;
+                                    rdfs:label "track"@it .
+
+
+###  http://www.music.com/brani/Album
+:Album rdf:type owl:Class ;
+       owl:equivalentClass <https://dbpedia.org/ontology/Album> ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :albumConAlmenoDueCanzoni ;
+                             owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                             owl:onClass :Canzone
+                           ] ;
+       rdfs:comment "Album che contiene la canzoni di un artista"@it ;
+       rdfs:label "Album"@it .
+
+
+###  http://www.music.com/brani/Artista
+:Artista rdf:type owl:Class ;
+         owl:equivalentClass <https://dbpedia.org/ontology/Singer> ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :artistaConAlmenoUnaCanzone ;
+                               owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :Canzone
+                             ] ;
+         rdfs:comment "Compositore della canzone"@it ;
+         rdfs:label "Artista"@it .
+
+
+###  http://www.music.com/brani/BoomBap
+:BoomBap rdf:type owl:Class ;
+         rdfs:subClassOf :Rap .
+
+
+###  http://www.music.com/brani/Canzone
+:Canzone rdf:type owl:Class ;
+         owl:equivalentClass <https://dbpedia.org/ontology/Song> ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :canzoneConAlmenoUnTesto ;
+                               owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :Testo
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :canzoneConGenere ;
+                               owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :GenereMusicale
+                             ] ;
+         rdfs:comment "Titolo della canzone"@it ;
+         rdfs:label "Canzone"@it .
+
+
+###  http://www.music.com/brani/GenereMusicale
+:GenereMusicale rdf:type owl:Class ;
+                rdfs:comment "Genere musicale della canzone"@it ;
+                rdfs:label "GenereMusicale"@it .
+
+
+###  http://www.music.com/brani/InsiemeAlbum
+:InsiemeAlbum rdf:type owl:Class ;
+              rdfs:comment "Insieme di album di un certo Artista"@it ;
+              rdfs:label "InsiemeAlbum"@it .
+
+
+###  http://www.music.com/brani/Lingua
+:Lingua rdf:type owl:Class ;
+        owl:equivalentClass [ rdf:type owl:Class ;
+                              owl:oneOf ( :Francese
+                                          :Inglese
+                                          :Italiano
+                                          :Spagnolo
+                                          :Tedesco
+                                        )
+                            ] ;
+        rdfs:comment "Lingua della canzone"@it ;
+        rdfs:label "Lingua"@it .
+
+
+###  http://www.music.com/brani/PopRap
+:PopRap rdf:type owl:Class ;
+        rdfs:subClassOf :Rap .
+
+
+###  http://www.music.com/brani/PunkRock
+:PunkRock rdf:type owl:Class ;
+          rdfs:subClassOf :Rock .
+
+
+###  http://www.music.com/brani/Rap
+:Rap rdf:type owl:Class ;
+     rdfs:subClassOf :GenereMusicale ;
+     rdfs:comment "Genere Rap"@it ;
+     rdfs:label "Rap"@it .
+
+
+###  http://www.music.com/brani/Rock
+:Rock rdf:type owl:Class ;
+      rdfs:subClassOf :GenereMusicale ;
+      rdfs:comment "Genere Rock"@it ;
+      rdfs:label "Rock"@it .
+
+
+###  http://www.music.com/brani/RockAndRoll
+:RockAndRoll rdf:type owl:Class ;
+             rdfs:subClassOf :Rock .
+
+
+###  http://www.music.com/brani/Testo
+:Testo rdf:type owl:Class ;
+       owl:equivalentClass [ rdf:type owl:Restriction ;
+                             owl:onProperty :testoConAlmenoUnaLingua ;
+                             owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onClass :Lingua
+                           ] ;
+       rdfs:comment "Testo della canzone ufficiale"@it ;
+       rdfs:label "Testo"@it .
+
+
+###  https://dbpedia.org/ontology/Album
+<https://dbpedia.org/ontology/Album> rdf:type owl:Class ;
+                                     rdfs:comment "Allineamento con la classe Album"@it ;
+                                     rdfs:label "Album"@it .
+
+
+###  https://dbpedia.org/ontology/Singer
+<https://dbpedia.org/ontology/Singer> rdf:type owl:Class ;
+                                      rdfs:comment "Allineamento con la classe Album"@it ;
+                                      rdfs:label "Singer"@it .
+
+
+###  https://dbpedia.org/ontology/Song
+<https://dbpedia.org/ontology/Song> rdf:type owl:Class ;
+                                    rdfs:comment "Allineamento con la classe Canzone"@it ;
+                                    rdfs:label "Song"@it .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.music.com/brani/BoomBap
+:BoomBap rdf:type owl:NamedIndividual ,
+                  :BoomBap .
+
+
+###  http://www.music.com/brani/Eminem
+:Eminem rdf:type owl:NamedIndividual ,
+                 <http://purl.org/ontology/mo/singer> ,
+                 :Artista ,
+                 <https://dbpedia.org/ontology/Singer> ;
+        :haInsiemeAlbum :albumEminem ;
+        :haNome "Marshall_Bruce_Mathers_III" ;
+        rdfs:comment "Artista rap"@it ;
+        rdfs:label "Eminem" .
+
+
+###  http://www.music.com/brani/Eminem-97_Bonnie_and_Clyde
+:Eminem-97_Bonnie_and_Clyde rdf:type owl:NamedIndividual ,
+                                     <http://purl.org/ontology/mo/track> ,
+                                     :Canzone ,
+                                     <https://dbpedia.org/ontology/Song> ;
+                            :canzoneDiGenere :BoomBap ;
+                            :contieneTesto :Eminem-97_Bonnie_and_Clyde-Testo ;
+                            :dataDiUscita "1999-02-23" ;
+                            :haUnaDurata "5:16" ;
+                            rdfs:comment "Canzone 97' Bonnie & Clyde - Eminem"@it ;
+                            rdfs:label "Eminem-97_Bonnie_and_Clyde" .
+
+
+###  http://www.music.com/brani/Eminem-97_Bonnie_and_Clyde-Testo
+:Eminem-97_Bonnie_and_Clyde-Testo rdf:type owl:NamedIndividual ,
+                                           :Testo ;
+                                  :scrittoInLingua :Inglese ;
+                                  rdfs:comment """[Intro]
+(Just the two of us, just the two of us)
+Baby, your dada loves you
+And I'ma always be here for you
+(Just the two of us, just the two of us)
+No matter what happens
+You're all I got in this world
+(Just the two of us, just the two of us)
+I would never give you up for nothin'
+(Just the two of us, just the two of us)
+Nobody in this world is ever gonna keep you from me
+I love you
+
+[Verse 1]
+C'mon Hai-Hai, we goin' to the beach
+Grab a couple of toys and let Dada strap you in the car seat
+Oh, where's Mama? She's takin' a little nap in the trunk
+Oh, that smell? Dada must've runned over a skunk
+Now, I know what you're thinkin', it's kind of late to go swimmin'
+But you know your Mama, she's one of those type of women
+That do crazy things, and if she don't get her way, she'll throw a fit
+Don't play with Dada's toy knife, honey, let go of it (No)
+And don't look so upset, why you actin' bashful?
+Don't you wanna help Dada build a sandcastle? (Yeah)
+And Mama said she wants to show you how far she can float
+And don't worry about that little boo-boo on her throat
+It's just a little scratch, it don't hurt
+Her was eatin' dinner while you were sweepin'
+And spilled ketchup on her shirt
+Mama's messy, ain't she? We'll let her wash off in the water
+And me and you can play by ourselves, can't we?
+See rap shows near Turin
+Get tickets as low as $96
+You might also like
+Habits
+Eminem & White Gold
+Guilty Conscience 2
+Eminem
+Antichrist
+Eminem
+[Chorus]
+Just the two of us, just the two of us
+And when we ride
+Just the two of us, just the two of us
+Just you and I
+Just the two of us, just the two of us
+And when we ride
+Just the two of us, just the two of us
+Just you and I (See, honey)
+
+[Verse 2]
+There's a place called Heaven and a place called Hell
+A place called prison and a place called jail
+And Dada's probably on his way to all of 'em except one
+'Cause Mama's got a new husband and a stepson
+And you don't want a brother, do ya? (Nah)
+Maybe when you're old enough
+To understand a little better, I'll explain it to ya
+But for now, we'll just say Mama was real, real bad
+Was bein' mean to Dad and made him real, real mad
+But I still feel sad that I put her on time out
+Sit back in your chair, honey, quit tryna climb out
+I told you it's okay, Hai-Hai, want a ba-ba?
+Take a night-night? Na-na-boo, goo-goo-ga-ga?
+Her make poo-poo ca-ca? Dada change your didee
+Clean the baby up so her can take a nighty-nighty
+Your dad'll wake her up as soon as we get to the water
+'97 Bonnie and Clyde, me and my daughter
+[Chorus]
+Just the two of us, just the two of us
+And when we ride
+Just the two of us, just the two of us
+Just you and I
+Just the two of us, just the two of us
+And when we ride
+Just the two of us, just the two of us
+Just you and I
+
+[Verse 3]
+Wake up, sweepyhead, we're here, before we pway
+We're gonna take Mama for a wittle walk along the pier
+Baby, don't cry, honey, don't get the wrong idea
+Mama's too sweepy to hear you scweamin' in her ear (Mama)
+That's why you can't get her to wake, but don't worry
+Dada made a nice bed for Mommy at the bottom of the lake
+Here, you wanna help Dada tie a rope around this rock? (Yeah)
+We'll tie it to her footsie then we'll roll her off the dock
+Ready now, here we go, on the count of free
+One, two, free, whee
+There goes Mama, spashin' in the water
+No more fightin' with Dad, no more restraining order
+No more step-dada, no more new brother
+Blow her kisses bye-bye, tell Mama you love her (Mommy)
+Now we'll go play in the sand, build a castle and junk
+But first, just help Dad with two more things out the trunk
+[Chorus]
+Just the two of us, just the two of us
+And when we ride
+Just the two of us, just the two of us
+Just you and I
+Just the two of us, just the two of us
+And when we ride
+Just the two of us, just the two of us
+Just you and I
+
+[Outro]
+(Just the two of us, just the two of us)
+Just me and you, baby, is all we need in this world
+(Just the two of us, just the two of us)
+Just me and you
+Your dada will always be here for you
+Your dada's always gonna love you, remember that
+If you ever need me, I'ma always be here for you
+You ever need anything, just ask
+Dada will be right there
+Your dada loves you
+I love you, baby"""@it ;
+                                  rdfs:label "Eminem-97_Bonnie_and_Clyde-Testo" .
+
+
+###  http://www.music.com/brani/Eminem-Evil
+:Eminem-Evil rdf:type owl:NamedIndividual ,
+                      <http://purl.org/ontology/mo/track> ,
+                      :Canzone ,
+                      <https://dbpedia.org/ontology/Song> ;
+             :canzoneDiGenere :BoomBap ;
+             :contieneTesto :Eminem-Evil-Testo ;
+             :dataDiUscita "2024-07-12" ;
+             :haUnaDurata "3:50" ;
+             rdfs:comment "Canzone Evil - Eminem"@it ;
+             rdfs:label "Eminem-Evil" .
+
+
+###  http://www.music.com/brani/Eminem-Evil-Testo
+:Eminem-Evil-Testo rdf:type owl:NamedIndividual ,
+                            :Testo ;
+                   :scrittoInLingua :Inglese ;
+                   rdfs:comment """[Verse 1]
+Woke up with an attitude today
+Not in the mood to play (Nah)
+Might start a feud with Dre (Yeah)
+And ask him to shoot the fade (That's what I do)
+All I do is spray, spew the hate while I fuel the flames
+Who to blame for my screwed-up brain?
+You could say, in the booth, I'm A-human A-to-the-K (Aw)
+(Hailie, look) Look at them two little beautiful (Yeah) pewter-gray poodles, how cute are they? (The fuck?)
+Well, looks like them pooches are screwed today (I'm)
+Stuck in my ruthless ways (Yep), and I refusе to change (Yep)
+Nothin' to lose or gain (Nopе), guess I just choose to stay
+
+[Chorus]
+Evil (Yeah), I'm so evil
+Rotten to the core, a fuckin' twisted cerebral
+I'm so evil, so evil
+It's obvious that I am not like other people
+'Cause I'm evil, I'm so evil
+Rotten to the core, a fuckin' twisted cerebral
+I'm so evil, so evil
+It's obvious that I am not like other people (Yeah)
+
+[Verse 2]
+My medicine cabinet's big enough to fit a cab in it
+Tablets, I split like half of this capsule, it's travelin' like a javelin
+Through my abdomen, my stomach's unravelin'
+Might end up havin' Slim say some shit you feel fucked up for laughin' at, yeah
+And I'm phenomenal at it (What?), and that's problematic (What?)
+But if y'all fanatics (Huh?), maybe I'm your habit (Yeah)
+And I got all the dope (What?), so send me all them addicts (Get 'em all)
+And watch me shoot 'em up (Pew-pew) like semi-automatics (Come on)
+Slim snaps like a chin-strap
+Had my share of lows, yeah, now I'm the exact (What?)
+Opposite, just like a prostitute when she's gettin' smacked (Now)
+Pimp slaps, only way I'm hittin' my bottom, bitch (Yeah, take 'em back)
+I was five when they tried to say I stuck a live grenade
+Up inside of a microwave, I behave like a child, ayy
+Even when stakes are high as the price of an angus, I filet
+By the way, I think I just gave Skylar Gray hepatitis A (Ew)
+But when it's sink-or-swim, I just say, \"It's not me, it's him\" (Sorry)
+There's a demon who's deep within
+All I need is MD, or weed, or Henny, or Jim Beam, or Rémy, or Seagram's Gin
+Just to get underneath your skin, I would like you to meet my twin
+See rap shows near Turin
+Get tickets as low as $96
+You might also like
+Guilty Conscience 2
+Eminem
+Brand New Dance
+Eminem
+Habits
+Eminem & White Gold
+[Chorus]
+Evil, I'm so evil
+Rotten to the core, a fuckin' twisted cerebral
+I'm so evil, so evil
+It's obvious that I am not like other people
+'Cause I'm evil, I'm so evil
+Rotten to the core, a fuckin' twisted cerebral
+I'm so evil, so evil
+It's obvious that I am not like other people (Look it up, yeah)
+
+[Verse 3]
+Holy shit, Cait' Jenner just flipped (Yo)
+Told me knock this shit off and quit, and get off her dick (Damn)
+And I've had a bad day, I just slapped Dre
+Do not tell me what I can't say (Why?), that's gay (What's wrong with that?)
+And not the good kind of gay either (What?)
+Where two men fuck each other and hate beaver (Woah)
+What the fuck? Wait, we've established I'm straight, see, the (No)
+Way they try to make me the devil, the atheist (Oh)
+Shit can get a lot worse, these are my first thoughts, Johnnie Walker, this my third shot (Yeah)
+And I don't stop 'til the shots heard, pops for blocks, got the Mossberg cocked (What?)
+Couple choppers, two Glocks, a 2Pac shirt, Dockers, and boxers dropped
+Lookin' awkward as I walk into Oxford (Stop, the fuck?)
+So much ammunition, I sweat lead
+And just bought you a new bedspread for your deathbed (Haha)
+And I just got it made like Special Ed said
+Word to Redman, I'm a meth-head
+Used to get fed pet meds by my redneck stepdad
+'Til I beat his ass to death with a cassette deck (Ah)
+So much bloodshed that when he bled from his head gash (Yeah)
+It's kinda like I'm a bookworm (Huh?)
+'Cause I ain't stoppin' 'til everything gets red
+Call this sex ed with a splash of necrophilia (What?)
+'Cause when I say that I'm really the evilest, I'm fuckin' deadass (I'm fuckin' deadass, haha)
+Maybe what I need now more than likely's a psych eval'
+Mama, how do you like me now? (Huh?)
+Are you proud of me yet, Debbie? (Huh?) I done turned my whole life around
+But I think I'm just like you now because I turned out so fuckin'
+[Chorus]
+Evil, I'm so evil
+Rotten to the core, a fuckin' twisted cerebral
+I'm so evil, so evil
+It's obvious that I am not like other people
+'Cause I'm evil, I'm so evil
+Rotten to the core, a fuckin' twisted cerebral
+I'm so evil, so evil
+It's obvious that I am not like other people"""@it ;
+                   rdfs:label "Eminem-Evil-Testo" .
+
+
+###  http://www.music.com/brani/Eminem-Guilty_Conscience
+:Eminem-Guilty_Conscience rdf:type owl:NamedIndividual ,
+                                   <http://purl.org/ontology/mo/track> ,
+                                   :Canzone ,
+                                   <https://dbpedia.org/ontology/Song> ;
+                          :canzoneDiGenere :PopRap ;
+                          :contieneTesto :Eminem-Guilty_Conscience-Testo ;
+                          :dataDiUscita "1999-02-23" ;
+                          :haUnaDurata "3:19" ;
+                          rdfs:comment "Canzone Guilty Conscience - Eminem"@it ;
+                          rdfs:label "Eminem-Guilty_Conscience" .
+
+
+###  http://www.music.com/brani/Eminem-Guilty_Conscience-Testo
+:Eminem-Guilty_Conscience-Testo rdf:type owl:NamedIndividual ,
+                                         :Testo ;
+                                :scrittoInLingua :Inglese ;
+                                rdfs:comment """[Intro: Mark Avery & Eddie]
+Meet Eddie, 23 years old
+Fed up with life and the way things are going
+(Damn, I'm going fucking insane)
+He decides to rob a liquor store
+(I gotta take this shit, I can't take it no more, holmes)
+But on his way in, he has a sudden change of heart
+(Shit is mine)
+And suddenly (I gotta do this)
+His conscience comes into play (I gotta do this)
+
+[Verse 1: Dr. Dre, Eminem, & (Eddie)]
+Alright, stop (Huh?)
+Now before you walk in the door of this liquor store
+And try to get money out the drawer
+You better think of the consequence (Who are you?)
+I'm your motherfuckin' conscience
+That's nonsense
+Go in, gaffle the money, and run to one of your aunt's cribs
+And borrow a damn dress and one of her blond wigs
+(Can I borrow this?)
+Tell her you need a place to stay, you'll be safe for days
+If you shave your legs with Renee's razor blades
+Yeah, but if it all goes through like it's supposed to
+The whole neighborhood knows you and they'll expose you
+Think about it before you walk in the door first
+Look at the store clerk, she's older than George Burns
+Fuck that, do that shit, shoot that bitch
+Can you afford to blow this shit? Are you that rich?
+Why you give a fuck if she dies? Are you that bitch?
+Do you really think she gives a fuck if you have kids?
+Man, don't do it, it's not worth it to risk it (You're right)
+Not over this shit (Stop)
+Drop the biscuit (I will)
+Don't even listen to Slim, yo, he's bad for you
+You know what, Dre? I don't like your attitude
+See rap shows near Turin
+Get tickets as low as $96
+You might also like
+Temporary
+Eminem & Skylar Grey
+THE HEART PART 6
+Drake
+Family Matters
+Drake
+[Skit: Stan, Girl]
+Come on, just come in here for a minute
+I don't know
+Look, look, look
+Damn
+Look, it's gonna be alright, alright?
+O-okay
+Look, give me a kiss, pull your pants off, come on
+
+[Interlude: Mark Avery]
+Meet Stan, 21 years old
+After meeting a young girl at a rave party
+Things start getting hot and heavy in an upstairs bedroom
+Once again, his conscience comes into play
+
+[Verse 2: Eminem & Dr. Dre]
+Now, listen to me, while you're kissin' her cheek
+And smearin' her lipstick, slip this in her drink
+Now all you gotta do is nibble on this little bitch's earlobe
+Yo, this girl's only fifteen years old
+You shouldn't take advantage of her, it's not fair
+Yo, look at her bush, does it got hair? (Uh-huh)
+Fuck this bitch right here on the spot, bare
+'Til she passes out and she forgot how she got there
+Man, ain't you ever seen that one movie Kids?
+No, but I seen the porno with Sun Doobiest
+Shit, you wanna get hauled off to jail?
+Man, fuck that, hit that shit raw dog, then bail
+[Interlude: The Isley Brothers, Mark Avery, (Grady), & Grady's Wife]
+Here I lay
+(Man, it feels good to be home)
+Meet Grady, a 29-year-old construction worker
+After coming home from a hard day's work
+He walks in the door of his trailer park home
+To find his wife in bed with another man
+(What the fuck?) Grady
+
+[Verse 3: Dr. Dre & Eminem]
+Alright, calm down, relax, start breathin'
+Fuck that shit, you just caught this bitch cheatin'
+While you at work, she's with some dude tryna get off
+Fuck slittin' her throat, cut this bitch's head off
+Wait, what if there's an explanation for this shit?
+What, she tripped, fell, landed on his dick?
+Tsh, alright, Shady, maybe he's right, Grady
+But think about the baby before you get all crazy
+Okay, thought about it? Still wanna stab her?
+Grab her by the throat, get your daughter and kidnap her?
+That's what I did, be smart, don't be a retard
+You gonna take advice from somebody who slapped Dee Barnes?
+What you say?
+What's wrong? Didn't think I'd remember?
+I'ma kill you, motherfucker
+Uh-uh, temper, temper
+Mr. Dre, Mr. N.W.A, Mr. AK
+Comin' straight outta Compton, y'all better make way
+How in the fuck you gonna tell this man not to be violent?
+'Cause he don't need to go the same route that I went
+Been there, done that
+Aw, fuck it, what am I sayin'?
+Shoot 'em both, Grady, where's your gun at?"""@it ;
+                                rdfs:label "Eminem-Guilty_Conscience-Testo" .
+
+
+###  http://www.music.com/brani/Eminem-Paul
+:Eminem-Paul rdf:type owl:NamedIndividual ,
+                      <http://purl.org/ontology/mo/track> ,
+                      :Canzone ,
+                      <https://dbpedia.org/ontology/Song> ;
+             :canzoneDiGenere :PopRap ;
+             :contieneTesto :Eminem-Paul-Testo ;
+             :dataDiUscita "1999-02-23" ;
+             :haUnaDurata "1:11" ;
+             rdfs:comment "Canzone Paul - Eminem"@it ;
+             rdfs:label "Eminem-Paul" .
+
+
+###  http://www.music.com/brani/Eminem-Paul-Testo
+:Eminem-Paul-Testo rdf:type owl:NamedIndividual ,
+                            :Testo ;
+                   :scrittoInLingua :Inglese ;
+                   rdfs:comment """Em, what's going on?
+This is Paul Rosenberg, your faithful attorney at law
+Listen, I listened to the rough copy of your album
+And, uh, y'know, I've just got to be honest with you
+Can you tone it down a little bit?
+Because there's only so much I can explain
+Give me a call"""@it ;
+                   rdfs:label "Eminem-Paul-Testo" .
+
+
+###  http://www.music.com/brani/Eminem-Renaissance
+:Eminem-Renaissance rdf:type owl:NamedIndividual ,
+                             <http://purl.org/ontology/mo/track> ,
+                             :Canzone ,
+                             <https://dbpedia.org/ontology/Song> ;
+                    :canzoneDiGenere :BoomBap ;
+                    :contieneTesto :Eminem-Renaissance-Testo ;
+                    :dataDiUscita "2024-07-12" ;
+                    :haUnaDurata "1:38" ;
+                    rdfs:comment "CanzoneRenaissance - Eminem"@it ;
+                    rdfs:label "Eminem-Renaissance" .
+
+
+###  http://www.music.com/brani/Eminem-Renaissance-Testo
+:Eminem-Renaissance-Testo rdf:type owl:NamedIndividual ,
+                                   :Testo ;
+                          :scrittoInLingua :Inglese ;
+                          rdfs:comment """[Intro]
+*Spitting*
+
+[Verse]
+With balls, in his durag, he sags, fearin' no man
+He stands, pen in his hand like Edward Scissorhands
+Who slices competition and just goes about his business
+Anyone who knows about him knows about his shindig
+Shenanigans, and all his wacky antics in the papers
+Shady's danglin' a baby tangled in a blanket, stranglin'
+And hangin' him over the railing by the ankles on some gangster shit
+Child endangerment, dark brain, arcane with it, Mark Twainin' it
+You aren't tamin' it, sharp pain in the heart
+Aimin' a bar, chamber to carve names in it
+Start sprayin' and start ravin' on beef, starved, cravin' it
+You're at arm's length, you're in harm's way of it
+'Bout to show your ass why I'm still a pain in it
+You wanna know how I do it? I can't explain this shit
+Mechanic's brain with a pinch of Big Daddy Kane in it
+But I can show you the ropes 'til you get the hang of it
+Elephantiasis of the nuts, element
+Of Intelligent Hoodlum, Arrested Development
+Cella Dwellas and Wise Intelligent, since elementary
+Through Hell I went, accelerant from lack of melanin
+Failin' in school, smart aleck wit
+Helped me to rebel against shit so well and vent
+So eloquently, yet, I was irrelevant
+Soon as I quit givin' a fuck, I started to sell a bit
+Now let's travel inside the mind of a hater
+'Cause I don't see no fans, all I see's a bunch of complainers
+\"Kendrick's album was cool, but it didn't have any bangers
+Wayne's album or Ye's, couldn't tell you which one was lamer
+Joyner's album was corny, Shady's new shit is way worse
+Everything is either too tame or there's too much anger
+I didn't like the beat, so I hated Might Delete Later\"
+You nerdy pricks would find somethin' wrong with 36 Chambers
+It's what they do to the greats
+Pick apart a Picasso and make excuses to hate
+So you can wait for your flowers until you're blue in the face
+Stupid, you ain't gonna get 'em until your funeral wake (Hm)"""@it ;
+                          rdfs:label "Eminem-Renaissance-Testo" .
+
+
+###  http://www.music.com/brani/Eminem-Stan
+:Eminem-Stan rdf:type owl:NamedIndividual ,
+                      <http://purl.org/ontology/mo/track> ,
+                      :Canzone ,
+                      <https://dbpedia.org/ontology/Song> ;
+             :canzoneDiGenere :BoomBap ;
+             :contieneTesto :Eminem-Stan-Testo ;
+             :haUnaDurata "2000-03-23" ,
+                          "6:44" ;
+             rdfs:comment "Canzone Stan - Eminem"@it ;
+             rdfs:label "Eminem-Stan" .
+
+
+###  http://www.music.com/brani/Eminem-Stan-Testo
+:Eminem-Stan-Testo rdf:type owl:NamedIndividual ,
+                            :Testo ;
+                   :scrittoInLingua :Inglese ;
+                   rdfs:comment """[Produced by DJ Mark the 45 King]
+
+[Intro: Dido]
+My tea's gone cold, I'm wondering why I
+Got out of bed at all
+The morning rain clouds up my window (Window)
+And I can't see at all
+And even if I could, it'd all be grey
+But your picture on my wall
+It reminds me that it's not so bad, it's not so bad (Bad)
+
+[Chorus: Dido]
+My tea's gone cold, I'm wondering why I
+Got out of bed at all
+The morning rain clouds up my window (Window)
+And I can't see at all
+And even if I could, it'd all be grey
+But your picture on my wall
+It reminds me that it's not so bad, it's not so bad (Bad)
+
+[Verse 1: Eminem]
+Dear Slim, I wrote you, but you still ain't callin'
+I left my cell, my pager, and my home phone at the bottom
+I sent two letters back in autumn, you must not've got 'em
+There prob'ly was a problem at the post office or somethin'
+Sometimes I scribble addresses too sloppy when I jot 'em
+But anyways, fuck it, what's been up, man? How's your daughter?
+My girlfriend's pregnant too, I'm 'bout to be a father
+If I have a daughter, guess what I'ma call her? I'ma name her Bonnie
+I read about your Uncle Ronnie too, I'm sorry
+I had a friend kill himself over some bitch who didn't want him
+I know you prob'ly hear this every day, but I'm your biggest fan
+I even got the underground shit that you did with Skam
+I got a room full of your posters and your pictures, man
+I like the shit you did with Rawkus too, that shit was phat
+Anyways, I hope you get this, man, hit me back
+Just to chat, truly yours, your biggest fan, this is Stan
+See rap shows near Turin
+Get tickets as low as $96
+You might also like
+THE HEART PART 6
+Drake
+The Tortured Poets Department
+Taylor Swift
+Big Foot
+Nicki Minaj
+[Chorus: Dido]
+My tea's gone cold, I'm wondering why I
+Got out of bed at all
+The morning rain clouds up my window (Window)
+And I can't see at all
+And even if I could, it'd all be grey
+But your picture on my wall
+It reminds me that it's not so bad, it's not so bad (Bad)
+
+[Verse 2: Eminem]
+Dear Slim, you still ain't called or wrote, I hope you have a chance
+I ain't mad, I just think it's fucked up you don't answer fans
+If you didn't want to talk to me outside your concert, you didn't have to
+But you coulda signed an autograph for Matthew
+That's my little brother, man, he's only six years old
+We waited in the blisterin' cold for you, for four hours, and you just said, \"no\"
+That's pretty shitty, man, you're like his fuckin' idol
+He wants to be just like you, man, he likes you more than I do
+I ain't that mad, though I just don't like bein' lied to
+Remember when we met in Denver? You said if I'd write you, you would write back
+See, I'm just like you in a way: I never knew my father neither
+He used to always cheat on my mom and beat her
+I can relate to what you're sayin' in your songs
+So when I have a shitty day, I drift away and put 'em on
+'Cause I don't really got shit else, so that shit helps when I'm depressed
+I even got a tattoo with your name across the chest
+Sometimes I even cut myself to see how much it bleeds
+It's like adrenaline, the pain is such a sudden rush for me
+See, everything you say is real, and I respect you 'cause you tell it
+My girlfriend's jealous 'cause I talk about you 24/7
+But she don't know you like I know you, Slim, no one does
+She don't know what it was like for people like us growin' up
+You gotta call me, man, I'll be the biggest fan you'll ever lose
+Sincerely yours, Stan, PS: We should be together too
+[Chorus: Dido]
+My tea's gone cold, I'm wondering why I
+Got out of bed at all
+The morning rain clouds up my window (Window)
+And I can't see at all
+And even if I could, it'd all be grey
+But your picture on my wall
+It reminds me that it's not so bad, it's not so bad (Bad)
+
+[Verse 3: Eminem]
+Dear Mr. I'm-Too-Good-to-Call-or-Write-My-Fans
+This'll be the last package I ever send your ass
+It's been six months, and still no word, I don't deserve it?
+I know you got my last two letters, I wrote the addresses on 'em perfect
+So this is my cassette I'm sendin' you, I hope you hear it
+I'm in the car right now, I'm doin' ninety on the freeway
+Hey, Slim, I drank a fifth of vodka, you dare me to drive?
+You know the song by Phil Collins, \"In the Air of the Night\"
+About that guy who coulda saved that other guy from drownin'
+But didn't, then Phil saw it all, then at a show he found him?
+That's kinda how this is: You coulda rescued me from drownin'
+Now it's too late, I'm on a thousand downers now, I'm drowsy
+And all I wanted was a lousy letter or a call
+I hope you know I ripped all of your pictures off the wall
+I loved you, Slim, we coulda been together, think about it
+You ruined it now, I hope you can't sleep and you dream about it
+And when you dream, I hope you can't sleep and you scream about it
+I hope your conscience eats at you, and you can't breathe without me
+See, Slim, shut up, bitch! I'm tryna talk
+Hey, Slim, that's my girlfriend screamin' in the trunk
+But I didn't slit her throat, I just tied her up, see? I ain't like you
+'Cause if she suffocates she'll suffer more and then she'll die too
+Well, gotta go, I'm almost at the bridge now
+Oh, shit, I forgot, how am I supposed to send this shit out?!
+[Chorus: Dido]
+My tea's gone cold, I'm wondering why I
+Got out of bed at all
+The morning rain clouds up my window (Window)
+And I can't see at all
+And even if I could, it'd all be grey
+But your picture on my wall
+It reminds me that it's not so bad, it's not so bad (Bad)
+
+[Verse 4: Eminem]
+Dear Stan, I meant to write you sooner, but I just been busy
+You said your girlfriend's pregnant now, how far along is she?
+Look, I'm really flattered you would call your daughter that
+And here's an autograph for your brother, I wrote it on a Starter cap
+I'm sorry I didn't see you at the show, I must've missed you
+Don't think I did that shit intentionally just to diss you
+But what's this shit you said about you like to cut your wrists too?
+I say that shit just clownin', dawg, come on, how fucked up is you?
+You got some issues, Stan, I think you need some counselin'
+To help your ass from bouncin' off the walls when you get down some
+And what's this shit about us meant to be together?
+That type of shit'll make me not want us to meet each other
+I really think you and your girlfriend need each other
+Or maybe you just need to treat her better
+I hope you get to read this letter, I just hope it reaches you in time
+Before you hurt yourself, I think that you'll be doin' just fine
+If you relax a little, I'm glad I inspire you, but, Stan
+Why are you so mad? Try to understand that I do want you as a fan
+I just don't want you to do some crazy shit
+I seen this one shit on the news a couple weeks ago that made me sick
+Some dude was drunk and drove his car over a bridge
+And had his girlfriend in the trunk, and she was pregnant with his kid
+And in the car, they found a tape, but they didn't say who it was to
+Come to think about it, his name was, it was you
+Damn"""@it ;
+                   rdfs:label "Eminem-Stan-Testo" .
+
+
+###  http://www.music.com/brani/Eminem-The_Way_I_Am
+:Eminem-The_Way_I_Am rdf:type owl:NamedIndividual ,
+                              <http://purl.org/ontology/mo/track> ,
+                              :Canzone ,
+                              <https://dbpedia.org/ontology/Song> ;
+                     :canzoneDiGenere :PopRap ;
+                     :contieneTesto :Eminem-The_Way_I_Am-Testo ;
+                     :dataDiUscita "2000-03-23" ;
+                     :haUnaDurata "4:50" ;
+                     rdfs:comment "Canzone The Way I Am - Eminem"@it ;
+                     rdfs:label "Eminem-The_Way_I_Am" .
+
+
+###  http://www.music.com/brani/Eminem-The_Way_I_Am-Testo
+:Eminem-The_Way_I_Am-Testo rdf:type owl:NamedIndividual ,
+                                    :Testo ;
+                           :scrittoInLingua :Inglese ;
+                           rdfs:comment """[Intro]
+Man, whatever
+Dre, just let it run
+Ayo, turn the beat up a little bit
+Ayo
+This song is for anyone
+Fuck it, just shut up and listen
+Ayo
+
+[Verse 1]
+I sit back with this pack of Zig-Zags and this bag of this weed
+It gives me the shit needed to be the most meanest MC on this—
+On this Earth, and since birth, I've been cursed with this curse to just curse
+And just blurt this berserk and bizarre shit that works
+And it sells and it helps in itself to relieve
+All this tension, dispensin' these sentences
+Gettin' this stress that's been eatin' me recently
+Off of this chest, and I rest again peacefully
+But at least have the decency in you
+To leave me alone, when you freaks see me out
+In the streets when I'm eatin' or feedin' my daughter
+Do not come and speak to me
+I don't know you, and, no, I don't owe you a motherfuckin' thing
+I'm not Mr. *NSYNC, I'm not what your friends think
+I'm not Mr. Friendly, I can be a prick
+If you tempt me, my tank is on empty
+No patience is in me, and if you offend me
+I'm liftin' you ten feet in the air
+I don't care who was there and who saw me, just jaw you
+Go call you a lawyer, file you a lawsuit
+I'll smile in the courtroom, and buy you a wardrobe
+I'm tired of all you
+I don't mean to be mean
+But that's all I can be, it's just me
+See rap shows near Turin
+Get tickets as low as $96
+You might also like
+Antichrist
+Eminem
+Renaissance
+Eminem
+Big Foot
+Nicki Minaj
+[Chorus]
+And I am whatever you say I am
+If I wasn't, then why would I say I am?
+In the paper, the news, everyday I am
+(Ha) Radio won't even play my jam
+'Cause I am whatever you say I am
+If I wasn't, then why would I say I am?
+In the paper, the news, everyday I am
+(Ha) I don't know, that's just the way I am
+
+[Verse 2]
+Sometimes I just feel like my father, I hate to be bothered
+With all of this nonsense, it's constant
+And, \"Oh, it's his lyrical content
+The song Guilty Conscience has gotten such rotten responses\"
+And all of this controversy circles me
+And it seems like the media immediately points a finger at me
+So I point one back at 'em, but not the index or pinkie
+Or the ring or the thumb, it's the one you put up
+When you don't give a fuck, when you won't just put up
+With the bullshit they pull, 'cause they full of shit too
+When a dude's gettin' bullied and shoots up his school
+And they blame it on Marilyn and the heroin
+Where were the parents at?
+And look where it's at
+Middle America, now it's a tragedy
+Now it's so sad to see
+An upper-class city havin' this happenin'
+Then attack Eminem 'cause I rap this way, but I'm glad
+'Cause they feed me the fuel that I need for the fire to burn
+And it's burnin', and I have returned
+[Chorus]
+And I am whatever you say I am
+If I wasn't, then why would I say I am?
+In the paper, the news, everyday I am
+Radio won't even play my jam
+'Cause I am whatever you say I am
+If I wasn't, then why would I say I am?
+In the paper, the news, everyday I am
+(Ha) I don't know, that's just the way I am
+
+[Verse 3]
+I'm so sick and tired of bein' admired that I wish that I would just die or get fired
+And dropped from my label, let's stop with the fables
+I'm not gonna be able to top a My Name Is
+And pigeon-holed into some poppy sensation
+To cop me rotation at rock 'n' roll stations
+And I just do not got the patience
+To deal with these cocky Caucasians who think
+I'm some wigga who just tries to be black
+'Cause I talk with an accent and grab on my balls
+So they always keep askin' the same fuckin' questions
+What school did I go to, what hood I grew up in
+The why, the who, what, when, the where, and the how
+'Til I'm grabbin' my hair and I'm tearin' it out (Argh)
+'Cause they drivin' me crazy, I can't take it
+I'm racin', I'm pacin', I stand, and I sit
+And I'm thankful for every fan that I get
+But I can't take a shit in the bathroom without someone standin' by it
+No, I won't sign your autograph
+You can call me an asshole, I'm glad
+[Chorus]
+'Cause I am whatever you say I am
+If I wasn't, then why would I say I am?
+In the paper, the news, everyday I am
+Radio won't even play my jam
+'Cause I am whatever you say I am
+If I wasn't, then why would I say I am?
+In the paper, the news, everyday I am
+(Ha) I don't know, that's just the way I am
+
+[Produced by Eminem]"""@it ;
+                           rdfs:label "Eminem-The_Way_I_Am-Testo" .
+
+
+###  http://www.music.com/brani/Eminem-Trouble
+:Eminem-Trouble rdf:type owl:NamedIndividual ,
+                         <http://purl.org/ontology/mo/track> ,
+                         :Canzone ,
+                         <https://dbpedia.org/ontology/Song> ;
+                :canzoneDiGenere :PopRap ;
+                :contieneTesto :Eminem-Trouble-Testo ;
+                :dataDiUscita "2024-07-12" ;
+                :haUnaDurata "0:41" ;
+                rdfs:comment "Canzone Trouble - Eminem"@it ;
+                rdfs:label "Eminem-Trouble" .
+
+
+###  http://www.music.com/brani/Eminem-Trouble-Testo
+:Eminem-Trouble-Testo rdf:type owl:NamedIndividual ,
+                               :Testo ;
+                      :scrittoInLingua :Inglese ;
+                      rdfs:comment """[Intro: Slim Shady & Eminem]
+Alright, here, drink this
+What is it?
+Shut up and drink it
+No
+I said drink it, bitch
+The fuck? (Haha)
+The fuck are you tryin' to do? Get us cancelled (Ayo)
+
+[Verse: Slim Shady & Eminem]
+Fuck blind people (What?), and deaf people suck (Stop, yeah)
+So do cripples (No), dumb quadriplegic fucks
+With Christopher Reeve's luck (Woah, woah-woah-woah-woah)
+Shady, Jesus, what the fuck?
+Oh, here comes Marshall to try to clean this up (Shut up)
+What's the matter, Marshall? Your penis tucked?
+Aw, the big bad wapper just get his feewings hurt?
+Let me go, you bitch, huh, or what, genius, huh?
+You gonna cancel me, yeah? Gen-Z me, bruh?
+Little pussy, what's wrong? Thought you was dreaming, huh?
+When you gonna rеalize that we fuckin' need each othеr?"""@it ;
+                      rdfs:label "Eminem-Trouble-Testo" .
+
+
+###  http://www.music.com/brani/Eminem-Who_Knew
+:Eminem-Who_Knew rdf:type owl:NamedIndividual ,
+                          <http://purl.org/ontology/mo/track> ,
+                          :Canzone ,
+                          <https://dbpedia.org/ontology/Song> ;
+                 :canzoneDiGenere :PopRap ;
+                 :contieneTesto :Eminem-Who_Knew-Testo ;
+                 :dataDiUscita "2000-03-23" ;
+                 :haUnaDurata "3:47" ;
+                 rdfs:comment "Canzone Who Knew - Eminem"@it ;
+                 rdfs:label "Eminem-Who_Knew" .
+
+
+###  http://www.music.com/brani/Eminem-Who_Knew-Testo
+:Eminem-Who_Knew-Testo rdf:type owl:NamedIndividual ,
+                                :Testo ;
+                       :scrittoInLingua :Inglese ;
+                       rdfs:comment """[Intro]
+(I never knew I, knew I, knew I)
+(I never knew I, knew I, knew I) Mic check, one-two
+(I never knew I, knew I, knew I) Who woulda knew?
+(I never knew I, knew I, knew I) Who woulda known?
+(I never knew I, knew I, knew I) Fuck would of thought?
+(I never knew I, knew I, knew I) Motherfucker comes out
+(I never knew I, knew I, knew I) Sells a couple of million records
+(I never knew I, knew I, knew I) And these motherfuckers hit the ceiling
+(I never knew I)
+
+[Verse 1]
+I don't do Black music, I don't do white music (Nope)
+I make fight music for high school kids
+I put lives at risk when I drive like this
+I put wives at risk with a knife like this (Ah!) (Shit)
+You probably think I'm in your tape deck now
+I'm in the backseat of your truck with duct tape stretched out
+Ducked the fuck way down, waitin' to straight jump out
+Put it over your mouth, and grab you by the face — what now?
+Oh, you want me to watch my mouth? How?
+Take my fuckin' eyeballs out and turn 'em around? (Look)
+I'll burn your fuckin' house down, circle around
+And hit the hydrant, so you can't put your burnin' furniture out (Oh my God! Oh my God!)
+I'm sorry, there must be a mix-up
+You want me to fix up lyrics while our president gets his dick sucked?
+Fuck that! Take drugs, rape sluts
+Make fun of gay clubs, men who wear make-up
+Get aware, wake up, get a sense of humor
+Quit tryin' to censor music, this is for your kid's amusement (The kids!)
+But don't blame me when little Eric jumps off of the terrace
+You shoulda been watchin' him, apparently you ain't parents
+See rap shows near Turin
+Get tickets as low as $96
+You might also like
+Habits
+Eminem & White Gold
+Guilty Conscience 2
+Eminem
+Antichrist
+Eminem
+[Chorus]
+‘Cause I never knew I, knew I would get this big
+I never knew I, knew I'd affect this kid
+I never knew I'd get him to slit his wrist
+I never knew I'd get him to hit this bitch
+I never knew I, knew I would get this big
+I never knew I, knew I'd affect this kid
+I never knew I'd get him to slit his wrist
+I never knew I'd get him to hit this bitch
+
+[Verse 2]
+So who's bringin' the guns in this country? (Hm?)
+I couldn't sneak a plastic pellet gun through customs over in London
+And last week I seen this Schwarzenegger movie
+Where he's shootin' all sorts of these motherfuckers with a Uzi
+I see these three little kids up in the front row
+Screaming, \"Go!\" with their seventeen-year-old uncle
+I'm like, guidance?! Ain't they got the same moms
+And dads who got mad when I asked if they liked violence?
+And told me that my tape taught 'em to swear?
+What about the make-up you allow your twelve-year-old daughter to wear? (Hm?)
+So tell me that your son doesn't know any cuss words
+When his bus driver's screamin' at him, fuckin' him up worse (Go sit the fuck down, you little fucking prick!)
+And \"fuck\" was the first word I ever learned
+Up in the third grade, flippin' the gym teacher the bird (Look!)
+So read up 'bout how I used to get beat up
+Peed on, be on free lunch and changed school every three months
+My life's like kind of what my wife's like (What?)
+Fucked up after I beat her fuckin' ass every night: Ike
+So how much easier would life be if nineteen
+Million motherfuckers grew to be just like me?
+[Chorus]
+‘Cause I never knew I, knew I would get this big
+I never knew I, knew I'd affect this kid
+I never knew I'd get him to slit his wrist
+I never knew I'd get him to hit this bitch
+I never knew I, knew I would get this big
+I never knew I, knew I'd affect this kid
+I never knew I'd get him to slit his wrist
+I never knew I'd get him to hit this bitch
+
+[Verse 3]
+I never knew I, knew I'd have a new house or a new car
+A couple years ago, I was more poorer than you are
+I don't got that bad of a mouth, do I?
+Fuck! Shit! Ass! Bitch! Cunt! Shooby-de-doo-wop! (Oops)
+Skibbedy-be-bop, a Christopher Reeves
+Sonny Bono, skis, horses and hittin' some trees (Hey)
+How many retards'll listen to me
+And run-up in the school shootin' when they're pissed at a tea-
+-cher? Her? Him? Is it you? Is it them?
+\"Wasn't me, Slim Shady said to do it again!\"
+Damn, how much damage can you do with a pen?
+Man, I'm just as fucked up as you woulda been
+If you woulda been in my shoes, who woulda thought
+Slim Shady would be somethin' that you woulda bought?
+That woulda made you get a gun and shoot at a cop
+I just said it, I ain't know if you'd do it or not
+[Chorus]
+‘Cause I never knew I, knew I would get this big
+I never knew I, knew I'd affect this kid
+I never knew I'd get him to slit his wrist
+I never knew I'd get him to hit this bitch
+I never knew I, knew I would get this big
+I never knew I, knew I'd affect this kid
+I never knew I'd get him to slit his wrist
+I never knew I'd get him to hit this bitch
+
+[Outro]
+How the fuck was I supposed to know?"""@it ;
+                       rdfs:label "Eminem-Who_Knew-Testo" .
+
+
+###  http://www.music.com/brani/Francese
+:Francese rdf:type owl:NamedIndividual ,
+                   :Lingua ;
+          rdfs:comment "Lingua Francese"@it ;
+          rdfs:label "Francese" .
+
+
+###  http://www.music.com/brani/Hotel_Diablo
+:Hotel_Diablo rdf:type owl:NamedIndividual ,
+                       <http://purl.org/ontology/mo/album> ,
+                       :Album ,
+                       <https://dbpedia.org/ontology/Album> ;
+              :albumDiGenere :PopRap ;
+              :contieneCanzone :MGK-Burning_Memories ,
+                               :MGK-Hollywood_Whore ,
+                               :MGK-Sex_Drive ;
+              :hannoDiPubblicazione 2019 ;
+              rdfs:comment "Album di Machine Gun Kelly"@it ;
+              rdfs:label "Hotel_Diablo" .
+
+
+###  http://www.music.com/brani/Inglese
+:Inglese rdf:type owl:NamedIndividual ,
+                  :Lingua ;
+         rdfs:comment "Lingua Inglese"@it ;
+         rdfs:label "Inglese" .
+
+
+###  http://www.music.com/brani/Italiano
+:Italiano rdf:type owl:NamedIndividual ,
+                   :Lingua ;
+          rdfs:comment "Lingua Italiana"@it ;
+          rdfs:label "Italiano" .
+
+
+###  http://www.music.com/brani/MGK-Born_With_Horns
+:MGK-Born_With_Horns rdf:type owl:NamedIndividual ,
+                              <http://purl.org/ontology/mo/track> ,
+                              :Canzone ,
+                              <https://dbpedia.org/ontology/Song> ;
+                     :canzoneDiGenere :PunkRock ;
+                     :contieneTesto :MGK-Born_With_Horns-Testo ;
+                     :dataDiUscita "2022-03-25" ;
+                     :haUnaDurata "2:27" ;
+                     rdfs:comment "Canzone Born With Horns - MGK"@it ;
+                     rdfs:label "MGK-Born_With_Horns" .
+
+
+###  http://www.music.com/brani/MGK-Born_With_Horns-Testo
+:MGK-Born_With_Horns-Testo rdf:type owl:NamedIndividual ,
+                                    :Testo ;
+                           :scrittoInLingua :Inglese ;
+                           rdfs:comment """[Verse 1]
+Yeah, part one: Why is it so hard to live?
+Part two: I shouldn't have done what I did
+Part three: Everyone left me alone
+Part four: I don't want to live anymore
+
+[Chorus]
+Yeah, I'd rather be a freak than somebody's puppet
+Release your leash, I don't belong in the circus
+They cut each my wings soon as my name was in cursive
+Now I'm six feet deep, I guess my life wasn't perfect
+
+[Post-Chorus]
+In this film I know (I know, I know, I know, I know)
+There's no happy endings (There is, there is, there is, there is)
+In this film I know (I know, I know, I know, I know)
+There's no happy endings (There is, there is, there is, there is)
+
+[Verse 2: Machine Gun Kelly, Travis Barker]
+I'm afraid they're awake, I'm cautious who I'm serenading
+Summoned them by mistake, price you pay for entertaining
+Can't decide what is fake, Mercury is retrograding
+How much time can I waste constantly feeling the same thing?
+(Um-um-um-um-um-um, um-um-um-um-um)
+Ah!!!
+See upcoming rock shows
+Get tickets for your favorite artists
+You might also like
+​maybe
+mgk & Bring Me The Horizon
+​​​​sid & nancy
+mgk
+​papercuts (album edit)
+mgk
+[Bridge: Machine Gun Kelly, BazeXX & SlimXX]
+Alienate me, I'm not the one you want
+(I feel so) alienated
+Like I'm the devil's spawn
+A boy with horns (Yeah)
+Alienate me, I'm not the one you want
+(I feel so) alienated
+Like I'm the devil's spawn
+A boy with horns
+
+[Outro]
+Bang, bang, bang
+(A boy with horns)
+Bang, bang, bang"""@it ;
+                           rdfs:label "MGK-Born_With_Horns-Testo" .
+
+
+###  http://www.music.com/brani/MGK-Burning_Memories
+:MGK-Burning_Memories rdf:type owl:NamedIndividual ,
+                               <http://purl.org/ontology/mo/track> ,
+                               :Canzone ,
+                               <https://dbpedia.org/ontology/Song> ;
+                      :canzoneDiGenere :PopRap ;
+                      :contieneTesto :MGK-Burning_Memories-Testo ;
+                      :dataDiUscita "2019-07-05" ;
+                      :haUnaDurata "3:36" ;
+                      rdfs:comment "Canzone Burning Memories - MGK"@it ;
+                      rdfs:label "MGK-Burning_Memories" .
+
+
+###  http://www.music.com/brani/MGK-Burning_Memories-Testo
+:MGK-Burning_Memories-Testo rdf:type owl:NamedIndividual ,
+                                     :Testo ;
+                            :scrittoInLingua :Inglese ;
+                            rdfs:comment """[Verse 1: Machine Gun Kelly & Lil Skies]
+Yeah, this one's for the mama that I never knew (Never knew)
+I took acid just to burn all of my memories of you
+I guess now I really wanna know the truth
+How'd you leave your only child at nine for another dude?
+Took that pain and punched my father in the stomach 'til he bled
+Hit the store and stole a forty and took that shit to the head
+All the years that you ignored me, left me sleepless in the bed
+I hope daddy got some kids because your only son is dead
+My revenge, got it in the end (In the end)
+I'm so hard to reach, you won't see me again (Me again)
+I spent 20 years waiting on the stairs
+Now I'm finished thinking anyone will ever hear these prayers
+
+[Chorus: Machine Gun Kelly]
+If I die before I wake, smoke me out at Heaven's gate
+Bring me back to life on Sunday, pour me up the devil's drink
+Wake up, go to work on Monday, grind it out for seven straight
+You showed me that just because we're blood don't mean we relate
+
+[Post-Chorus: Machine Gun Kelly & phem with Lil Skies]
+All my dark days came in the summer
+All my thoughts changed, now I'm the loner
+Everything stayed, you were the runner
+Watched your train go away through the tunnels
+See rap shows near Turin
+Get tickets as low as $96
+You might also like
+​lost boys
+mgk & Trippie Redd
+​no more
+mgk & Trippie Redd
+​suddenly
+mgk & Trippie Redd
+[Verse 2: Lil Skies, Machine Gun Kelly & Both]
+Hold up, stack my money up just for a rainy day
+Play with MGK and I will pull up where you stay (Yeah)
+I die for my brother, I don't have nothin' to say (No)
+I died when my baby mama told me I was fake (Damn)
+I got real shooters, they ain't worried 'bout a case (Woah)
+I got people talkin', but won't say shit to my face (Yeah)
+EST for life, my opps all rolling in they grave (Damn)
+See me doin' good, I put that work in like a slave (Work, we up)
+Up all night, mind cloudy, don't be spooked
+If I show you love, then will you always tell the truth? (Truth)
+Feel like I'm goin' crazy, couldn't trust no one but you
+Suicidal thoughts keep tellin' me jump off the roof
+If I die tonight, know, I ain't got nothin' to prove
+CSI gon' say we was the realest in the room
+Fuck with mine, I kill 'cause I got everything to lose
+Fuck with mama, you know what I'll do (Yeah)
+
+[Chorus: Machine Gun Kelly]
+If I die before I wake, smoke me out at Heaven's gate (Smoke me out)
+Bring me back to life on Sunday, pour me up the devil's drink (Pour up)
+Wake up, go to work on Monday, grind it out for seven straight
+You showed me that just because we're blood don't mean we relate
+
+[Post-Chorus: Machine Gun Kelly & phem with Lil Skies]
+All my dark days came in the summer
+All my thoughts changed, now I'm the loner
+Everything stayed, you were the runner
+Watched your train go away through the tunnels
+[Outro: Fingazz & Lil Skies]
+Ooh, the memories (Woah)
+Keep playing on repeat (Yeah)
+I burn 'em all so I can start sleeping (Woah)
+And all the bad, I'll make it good (Yeah)
+I wouldn't change the past if I could (Woah)
+These memories, they won't get the best of me, woah (Yeah)
+Ooh, ooh
+Ooh, ooh"""@it ;
+                            rdfs:label "MGK-Burning_Memories-Testo" .
+
+
+###  http://www.music.com/brani/MGK-Drunk_Face
+:MGK-Drunk_Face rdf:type owl:NamedIndividual ,
+                         <http://purl.org/ontology/mo/track> ,
+                         :Canzone ,
+                         <https://dbpedia.org/ontology/Song> ;
+                :canzoneDiGenere :PunkRock ;
+                :contieneTesto :MGK-Drunk_Face-Testo ;
+                :dataDiUscita "2020-09-25" ;
+                :haUnaDurata "2:23" ;
+                rdfs:comment "Canzone Drunk Face - MGK"@it ;
+                rdfs:label "MGK-Drunk_Face" .
+
+
+###  http://www.music.com/brani/MGK-Drunk_Face-Testo
+:MGK-Drunk_Face-Testo rdf:type owl:NamedIndividual ,
+                               :Testo ;
+                      :scrittoInLingua :Inglese ;
+                      rdfs:comment """[Chorus]
+I'm still young, wasting my youth
+I'll grow up next summer
+I'm back on those drugs I quit
+I kept my dealer's number
+I'm still young, wasting my youth
+I'll grow up next summer
+I'm back on that girl I quit
+I should've lost her number
+
+[Verse 1]
+I'm overcompensating for heartbreak
+I swallowed a pill that was in a heart shape
+Her hands on my chest, feelin' my heartbeat
+She spillin' her drink all on my car seat
+She'll get attached and then trap me
+Then I gotta act like I'm happy
+She posts pics to get at me
+Déjà vu, it's like last week
+
+[Chorus]
+I'm still young, wasting my youth
+I'll grow up next summer
+I'm back on those drugs I quit
+I kept my dealer's number
+I'm still young, wasting my youth
+I'll grow up next summer
+I'm back on that girl I quit
+I should've lost her number
+See upcoming rock shows
+Get tickets for your favorite artists
+You might also like
+meet the grahams
+Kendrick Lamar
+Not Like Us
+Kendrick Lamar
+euphoria
+Kendrick Lamar
+[Verse 2]
+Pedal to the floor, yeah, I can't brake
+The floor of the hotel's my ashtray
+She opened the door and walked past me
+I'm a Hollywood whore, I don't ask names
+Yeah, let's get high as fuck
+I've tried to cover up
+Eyes that have seen too much
+I'd go blind for her touch
+
+[Chorus]
+I'm still young, wasting my youth
+I'll grow up next summer
+I'm back on those drugs I quit
+I kept my dealer's number
+I'm still young, wasting my youth
+I'll grow up next summer
+I'm back on that girl I quit
+I should've lost her number
+
+[Outro]
+I'm still young
+I'm wasted and I'm not getting younger
+I'll grow up
+I promise that I'll grow up next summer
+I'm still young (You plus me is euphoria)
+I'm wasted and I'm not getting younger
+I'll grow up (I have sinned, don't help me, Jesus)
+I promise that I'll grow up next summer
+I'm still young (You plus me is euphoria)
+I'm wasted and I'm not getting younger
+I'm still young (I have sinned, don't help me, Jesus)
+I promise that I'll grow up next summer"""@it ;
+                      rdfs:label "MGK-Drunk_Face-Testo" .
+
+
+###  http://www.music.com/brani/MGK-Hollywood_Whore
+:MGK-Hollywood_Whore rdf:type owl:NamedIndividual ,
+                              <http://purl.org/ontology/mo/track> ,
+                              :Canzone ,
+                              <https://dbpedia.org/ontology/Song> ;
+                     :canzoneDiGenere :PopRap ;
+                     :contieneTesto :MGK-Hollywood_Whore-Testo ;
+                     :dataDiUscita "2019-07-05" ;
+                     :haUnaDurata "3:23" ;
+                     rdfs:comment "Canzone Hollywood Whore - MGK"@it ;
+                     rdfs:label "MGK-Hollywood_Whore" .
+
+
+###  http://www.music.com/brani/MGK-Hollywood_Whore-Testo
+:MGK-Hollywood_Whore-Testo rdf:type owl:NamedIndividual ,
+                                    :Testo ;
+                           :scrittoInLingua :Inglese ;
+                           rdfs:comment """[Verse 1]
+Am I wrong for bein' lost?
+The pressures of bein’ boss exhausted every bone in my body
+I can't walk, I don't talk, I scream, I don’t stop to think
+I'm so close to the dream that I can't go to sleep
+Ironic, I know, so I need more chronic to roll
+Tryna find what's more important, the money or my soul
+It's cold, I'm low, I'm caught between the roads
+Under the Hollywood sign, you get blinded by the glow, uh
+Yo, how could you look me in the face?
+You sat at the table with my daughter
+Promisin' you got us right after you finished sayin’ grace
+Why don’t you tell her what you're hiding in the bank?
+It’s time to cut my lawn and see the snakes
+It's time to tell the truth to every fan who doesn't understand
+That it's because of you they had to wait
+While you left me here to deal with all the hate
+I still smile but feel so fake
+It’s no sun, the clouds are opaque
+So much shade I read on one page
+I can't even look at your name without gettin' the shakes
+What a mistake, uh, look how you take, uh
+What doesn't belong to you, this was a rape
+And if fate send us both to Heaven
+I'ma keep a blade in my leather so I can kill you at the gate, uh
+See rap shows near Turin
+Get tickets as low as $96
+You might also like
+​struggles
+mgk & Trippie Redd
+Death In My Pocket
+mgk
+euphoria
+Kendrick Lamar
+[Chorus]
+(First place)
+Isn't worth it when you see it's all (Two-faced)
+Tryna fit into a world with no (New space)
+Commit third-degree murder (What for?)
+Tryna play me like a Hollywood whore
+(First place)
+Isn't worth it when you see it's all (Two-faced)
+Tryna fit into a world with no (New space)
+Commit third-degree murder (What for?)
+Tryna play me like a Hollywood whore
+
+[Verse 2]
+I woke up sweatin', tryna forget I'm in a mansion
+'Cause fans are mad at my expansion
+And my friend I thought was family
+Who'd always understand me
+Got offended 'cause he jealous
+We supposed to be at the GRAMMYs
+I'm askin', when did pride and passion
+Get mistaken for handouts and ass-kissin'?
+The fact is I made it from trailer trash to Saks Fifth
+Took it from underground to massive and the come up was classic
+Back when white boys rapped, they gettin' they ass kicked
+I was battlin', puttin' these rappers in caskets
+I was walkin' home, gettin' jumped after classes
+Tell me, why don't my haters mention that shit?
+Now my rent is due and I'm a tenant gettin' by with no credit
+Got residue from a sedative I ain't get from the medic
+My schedule is so fuckin' hectic, but still I'm in debt
+I'd be better off dead so life insurance keep my family fed
+It's because of y'all I couldn't separate from my career
+'Cause of y'all I hated myself for so many years
+'Cause of you, you ain't never gonna see me trust
+Even if I got a wife, she just somebody I fuck
+[Chorus]
+(First place)
+Isn't worth it when you see it's all (Two-faced)
+Tryna fit into a world with no (New space)
+Commit third-degree murder (What for?)
+Tryna play me like a Hollywood whore
+(First place)
+Isn't worth it when you see it's all (Two-faced)
+Tryna fit into a world with no (New space)
+Commit third-degree murder (What for?)
+Tryna play me like a Hollywood whore
+
+[Outro]
+The City of Angels, danger
+The City of Angels, danger"""@it ;
+                           rdfs:label "MGK-Hollywood_Whore-Testo" .
+
+
+###  http://www.music.com/brani/MGK-Lonely
+:MGK-Lonely rdf:type owl:NamedIndividual ,
+                     <http://purl.org/ontology/mo/track> ,
+                     :Canzone ,
+                     <https://dbpedia.org/ontology/Song> ;
+            :canzoneDiGenere :PunkRock ;
+            :contieneTesto :MGK-Lonely-Testo ;
+            :dataDiUscita "2020-09-25" ;
+            :haUnaDurata "3:10" ;
+            rdfs:comment "Canzone Lonely - MGK"@it ;
+            rdfs:label "MGK-Lonely" .
+
+
+###  http://www.music.com/brani/MGK-Lonely-Testo
+:MGK-Lonely-Testo rdf:type owl:NamedIndividual ,
+                           :Testo ;
+                  :scrittoInLingua :Inglese ;
+                  rdfs:comment """[Verse 1]
+I got in trouble
+The first time my dad saw me
+Dance with the devil
+How are we so opposite?
+I lived with your sister
+My first home since Mom had left
+And I wrote my first song with him in the basement
+
+[Pre-Chorus]
+And then he said goodbye way too soon
+And this don't feel right without you
+
+[Chorus]
+Lonely, lonely, even when the room is full
+I'd trade it, trade it, I would trade it all for you
+Lonely, lonely, even when the room is full
+I'm lonely, lonely, lonely without you
+
+[Verse 2]
+I got in trouble
+The first time the cops saw me
+Dance with the devil
+I ended up in handcuffs and then
+You called your sister
+She cried when she picked me up
+Goddamn, how I miss her
+'Cause she didn't give a fuck
+See upcoming rock shows
+Get tickets for your favorite artists
+You might also like
+Lucky
+Halsey
+Kill Bill
+SZA
+bloody valentine
+mgk
+[Pre-Chorus]
+And then she said goodbye way too soon
+And this don't feel right without you
+
+[Chorus]
+Lonely, lonely, even when the room is full
+I'd trade it, trade it, I would trade it all for you
+Lonely, lonely, even when the room is full
+I'm lonely, lonely, lonely without you
+
+[Bridge]
+The last time I saw you (Fuck)
+I cried, I wish you had more time left
+The last time I heard you
+They held the phone, you took your last breath
+The last time I saw you
+I cried, I wish you had more time left
+The last time I heard you
+They held the phone, you took your last breath
+
+[Chorus]
+Lonely, lonely, even when the room is full
+I'd trade it, trade it, I would trade it all for you
+Lonely, lonely, even when the room is full
+I'd trade it, trade it, I'd trade it all for you
+Lonely, lonely, even when the room is full
+I'd trade it, trade it, I'd trade it all for you
+Lonely, lonely, even when the room is full
+I hate this, I'm jaded, and I'd trade it all for you
+[Outro]
+Boy, it was just a dangerous birth
+His umbilical cord was stuck around his neck
+And so I ended up, uh, undoing the umbilical cord, and, uh
+Well, he was bigger than the normal child
+I don't know what it was but he had a, uh
+He had a heart problem and they didn't think he would live"""@it ;
+                  rdfs:label "MGK-Lonely-Testo" .
+
+
+###  http://www.music.com/brani/MGK-Make_Up_Sex
+:MGK-Make_Up_Sex rdf:type owl:NamedIndividual ,
+                          <http://purl.org/ontology/mo/track> ,
+                          :Canzone ,
+                          <https://dbpedia.org/ontology/Song> ;
+                 :canzoneDiGenere :PunkRock ;
+                 :contieneTesto :MGK-Make_Up_Sex-Testo ;
+                 :dataDiUscita "2020-09-25" ;
+                 :haUnaDurata "2:02" ;
+                 rdfs:comment "Canzone Make Up Sex - MGK"@it ;
+                 rdfs:label "MGK-Make_Up_Sex" .
+
+
+###  http://www.music.com/brani/MGK-Make_Up_Sex-Testo
+:MGK-Make_Up_Sex-Testo rdf:type owl:NamedIndividual ,
+                                :Testo ;
+                       :scrittoInLingua :Inglese ;
+                       rdfs:comment """[Verse 1: mgk]
+Okay, screaming when we fuck, screaming when we fight, yeah
+Even when I'm drunk, you're my only type, yeah
+Please don't break my heart, I know that you might, yeah
+Tell me, tell me now, are you 'bout that life? Yeah
+Bonnie and Clyde, ready to die
+Two gravesites, later tonight
+You told me to stop waiting
+I can feel your back breaking
+Face down, lay pipe, ooh
+Waterworks, swim your pool
+Backstroke, we both naked
+I can see that ass shaking (Damn)
+
+[Chorus: mgk]
+Yeah, break up just to make up (Makе up)
+You're gone when I wakе up
+Yeah, break up just to make up (Make up)
+You're gone when I wake up
+
+[Verse 2: blackbear]
+(Yeah) I love chaos, I love toxic
+I love wreckage, I love falling
+Pics you're taking, pics you're cropping
+It's hard lately, I'm exhausted
+You hate my guts then you love me
+You make me feel so disgusting
+Can't stop a runner from running
+So, go, go, go
+You're my only drug, you're my only vice, yeah
+Fighting then we fuck, you're my only type, yeah
+Mixing bad decisions up with one night stands and Hennessey
+All I've got's this broken heart but you can have the rest of me
+See upcoming rock shows
+Get tickets for your favorite artists
+You might also like
+Fortnight
+Taylor Swift
+​suddenly
+mgk & Trippie Redd
+​no more
+mgk & Trippie Redd
+[Chorus: mgk and blackbear]
+Yeah, break up just to make up (Make up)
+You're gone when I wake up
+Yeah, break up just to make up (Make up)
+You're gone when I wake up
+
+[Bridge: blackbear, mgk]
+When you come back, I'll be waiting (I'm missing you)
+There's something you're not saying
+When you come back, I'll be waiting (Is it someone new?)
+There's something you're not saying
+
+[Outro: mgk]
+I'm missing you
+Is it someone new?"""@it ;
+                       rdfs:label "MGK-Make_Up_Sex-Testo" .
+
+
+###  http://www.music.com/brani/MGK-Maybe
+:MGK-Maybe rdf:type owl:NamedIndividual ,
+                    <http://purl.org/ontology/mo/track> ,
+                    :Canzone ,
+                    <https://dbpedia.org/ontology/Song> ;
+           :canzoneDiGenere :PunkRock ;
+           :contieneTesto :MGK-Maybe-Testo ;
+           :dataDiUscita "2020-09-25" ;
+           :haUnaDurata "2:50" ;
+           rdfs:comment "Canzone Maybe - MGK"@it ;
+           rdfs:label "MGK-Maybe" .
+
+
+###  http://www.music.com/brani/MGK-Maybe-Testo
+:MGK-Maybe-Testo rdf:type owl:NamedIndividual ,
+                          :Testo ;
+                 :scrittoInLingua :Inglese ;
+                 rdfs:comment """[Intro: Machine Gun Kelly]
+That's hard
+Two, three, five
+
+[Verse 1: Machine Gun Kelly]
+Maybe if I had something to say
+Butterfly effect from the last three days now
+Maybe if I had something to save
+I used to have a soul until I threw it away
+There's shadows on the wall, wish I would've ran (Yeah)
+Gotta get away, I hope you understand
+I try to hide my face like a wanted man (Yeah)
+Maybe I'll be gone before you count to ten
+
+[Chorus: Machine Gun Kelly]
+I made up my mind this evening
+I'm taking the last, I'm taking the last
+Drink while my conscience eats me
+I'm taking thе last, I'm taking the last
+I'm ready to let you go
+I'm rеady to let you go
+I'm ready to let you go
+This time is the last, this time is the last
+
+[Verse 2: Oli Sykes, Machine Gun Kelly & Both]
+Maybe if we went another way (Another way)
+I wouldn't be regretting the decisions that I made
+I don't want to spend another day (Another day)
+Looking for somebody that I know I can't replace
+My tears fall, you don't miss me
+Put me out my misery
+Think my heart is history
+I think I'm broke and nothing can fix me
+See upcoming rock shows
+Get tickets for your favorite artists
+You might also like
+Shakira: Bzrp Music Sessions, Vol. 53
+Bizarrap & Shakira
+get him back!
+Olivia Rodrigo
+Cinderella
+Future, Metro Boomin & Travis Scott
+[Chorus: Machine Gun Kelly & Oli Sykes]
+I made up my mind this evening
+I'm taking the last, I'm taking the last
+Drink while my conscience eats me
+I'm taking the last, I'm taking the last
+I'm ready to let you go
+I'm ready to let you go
+I'm ready to let you go
+This time is the last, this time is the last
+
+[Breakdown: Oli Sykes, Machine Gun Kelly & Both]
+Yeah (Maybe)
+We were built to fall apart
+But I can't feel you now
+And it's too late now, there's no point screaming
+Dug your grave, so fuck your feelings
+No one's here, so now you're on your own
+
+[Chorus: Machine Gun Kelly, Machine Gun Kelly & Oli Sykes]
+I made up my mind this evening
+I'm taking the last, I'm taking the last
+Drink while my conscience eats me
+I'm taking the last, I'm taking the last
+I'm ready to let you go
+I'm ready to let you go
+I'm ready to let you go
+This time is the last, this time is the last"""@it ;
+                 rdfs:label "MGK-Maybe-Testo" .
+
+
+###  http://www.music.com/brani/MGK-Sex_Drive
+:MGK-Sex_Drive rdf:type owl:NamedIndividual ,
+                        <http://purl.org/ontology/mo/track> ,
+                        :Canzone ,
+                        <https://dbpedia.org/ontology/Song> ;
+               :canzoneDiGenere :PopRap ;
+               :contieneTesto :MGK-Sex_Drive-Testo ;
+               :dataDiUscita "2019-07-05" ;
+               :haUnaDurata "2:03" ;
+               rdfs:comment "Canzone Sex Drive - MGK"@it ;
+               rdfs:label "MGK-Sex_Drive" .
+
+
+###  http://www.music.com/brani/MGK-Sex_Drive-Testo
+:MGK-Sex_Drive-Testo rdf:type owl:NamedIndividual ,
+                              :Testo ;
+                     :scrittoInLingua :Inglese ;
+                     rdfs:comment """[Intro: Machine Gun Kelly]
+Come and find yourself
+Come and find yourself
+Don't you realize that you're the problem?
+This is the reason I can't sleep at night
+Hey
+Why does it happen to me?
+Where are you going?
+
+[Interlude: Cara Delevingne]
+Welcome to Hotel Diablo
+
+[Outro: Machine Gun Kelly]
+Come and find yourself"""@it ;
+                     rdfs:label "MGK-Sex_Drive-Testo" .
+
+
+###  http://www.music.com/brani/MGK-Title_Track
+:MGK-Title_Track rdf:type owl:NamedIndividual ,
+                          <http://purl.org/ontology/mo/track> ,
+                          :Canzone ,
+                          <https://dbpedia.org/ontology/Song> ;
+                 :canzoneDiGenere :PunkRock ;
+                 :contieneTesto :MGK-Title_Track-Testo ;
+                 :dataDiUscita "2020-09-25" ;
+                 :haUnaDurata "2:45" ;
+                 rdfs:comment "Canzone Title Track - MGK"@it ;
+                 rdfs:label "MGK-Title_Track" .
+
+
+###  http://www.music.com/brani/MGK-Title_Track-Testo
+:MGK-Title_Track-Testo rdf:type owl:NamedIndividual ,
+                                :Testo ;
+                       :scrittoInLingua :Inglese ;
+                       rdfs:comment """[Verse 1]
+I sold some tickets
+To come see my downfall
+It sold out in minutes
+I saw friends in the front row
+They'll leave when I'm finished
+And the light in my name's gone
+'Cause the ones who gas you up
+Only come around when the flame's on and
+(I gave you my life, oh, oh-oh)
+Ayy, fuck it
+
+[Pre-Chorus: Machine Gun Kelly & Kevin Gruft]
+(Yeah, yeah, yeah)
+I use a razor to take off the edge, \"Jump off the ledge,\" they said
+(Yeah, yeah, yeah)
+\"Take the laser, aim at my head and paint the walls red,\" I said
+(Yeah, yeah, yeah)
+I'm crazy, I'm off the meds, I'm \"better off dead,\" they said
+(Yeah, yeah, yeah)
+I use a razor to take off the edge, jump off the ledge
+
+[Chorus]
+I'm sellin' tickets to my downfall
+I'm sellin' tickets to my downfall
+I'm sellin' tickets to my downfall
+I'm sellin' tickets to my downfall
+See upcoming rock shows
+Get tickets for your favorite artists
+You might also like
+Florida!!!
+Taylor Swift
+7 Minute Drill
+J. Cole
+Like That
+Future, Metro Boomin & Kendrick Lamar
+[Verse 2]
+Uh
+My finger's burning from the temperatures (Temperatures)
+My preacher led me off the precipice (Fuck)
+If I'm a painter, I'd be a depressionist (Depressionist)
+I need this time to decompress
+From this ketamine, this cocaine
+This medicine for my growing pain
+This weed I've been smoking, I'm dying inside
+
+[Pre-Chorus: Machine Gun Kelly & Kevin Gruft]
+(Yeah, yeah, yeah)
+I use a razor to take off the edge, \"Jump off the ledge,\" they said
+(Yeah, yeah, yeah)
+\"Take the laser, aim at my head and paint the walls red,\" I said
+(Fuck you)
+I'm crazy, I'm off the meds, I'm \"better off dead,\" they said
+(Yeah, yeah yeah)
+I use a razor to take off the edge, jump off the ledge
+
+[Chorus]
+I'm sellin' tickets to my downfall
+I'm sellin' tickets to my downfall
+I'm sellin' tickets to my downfall
+I'm sellin' tickets to my downfall
+[Outro]
+One more time"""@it ;
+                       rdfs:label "MGK-Title_Track-Testo" .
+
+
+###  http://www.music.com/brani/MachineGunKelly
+:MachineGunKelly rdf:type owl:NamedIndividual ,
+                          <http://purl.org/ontology/mo/singer> ,
+                          :Artista ,
+                          <https://dbpedia.org/ontology/Singer> ;
+                 :haInsiemeAlbum :albumMachineGunKelly ;
+                 :haNome "Colson_Baker" ;
+                 rdfs:comment "Artista punk rock"@it ;
+                 rdfs:label "MachineGunKelly" .
+
+
+###  http://www.music.com/brani/Mainstream_Sellout
+:Mainstream_Sellout rdf:type owl:NamedIndividual ,
+                             <http://purl.org/ontology/mo/album> ,
+                             :Album ,
+                             <https://dbpedia.org/ontology/Album> ;
+                    :albumDiGenere :PunkRock ;
+                    :contieneCanzone :MGK-Born_With_Horns ,
+                                     :MGK-Make_Up_Sex ,
+                                     :MGK-Maybe ;
+                    :hannoDiPubblicazione 2022 ;
+                    rdfs:comment "Album di Machine Gun Kelly"@it ;
+                    rdfs:label "Mainstream_Sellout" .
+
+
+###  http://www.music.com/brani/PopRap
+:PopRap rdf:type owl:NamedIndividual ,
+                 :PopRap .
+
+
+###  http://www.music.com/brani/PunkRock
+:PunkRock rdf:type owl:NamedIndividual ,
+                   :PunkRock .
+
+
+###  http://www.music.com/brani/RockAndRoll
+:RockAndRoll rdf:type owl:NamedIndividual ,
+                      :RockAndRoll .
+
+
+###  http://www.music.com/brani/Spagnolo
+:Spagnolo rdf:type owl:NamedIndividual ,
+                   :Lingua ;
+          rdfs:comment "Lingua Spagnola"@it ;
+          rdfs:label "Spagnolo" .
+
+
+###  http://www.music.com/brani/Tedesco
+:Tedesco rdf:type owl:NamedIndividual ,
+                  :Lingua ;
+         rdfs:comment "Lingua Tedesca"@it ;
+         rdfs:label "Tedesco" .
+
+
+###  http://www.music.com/brani/The_Death_of_Slim_Shady_Coup_de_Grace
+:The_Death_of_Slim_Shady_Coup_de_Grace rdf:type owl:NamedIndividual ,
+                                                <http://purl.org/ontology/mo/album> ,
+                                                :Album ,
+                                                <https://dbpedia.org/ontology/Album> ;
+                                       :albumDiGenere :BoomBap ,
+                                                      :PopRap ;
+                                       :contieneCanzone :Eminem-Evil ,
+                                                        :Eminem-Renaissance ,
+                                                        :Eminem-Trouble ;
+                                       :hannoDiPubblicazione 2024 ;
+                                       rdfs:comment "Album di Eminem"@it ;
+                                       rdfs:label "The_Death_of_Slim_Shady_Coup_de_Grace" .
+
+
+###  http://www.music.com/brani/The_Marshall_Mathers_LP
+:The_Marshall_Mathers_LP rdf:type owl:NamedIndividual ,
+                                  <http://purl.org/ontology/mo/album> ,
+                                  :Album ,
+                                  <https://dbpedia.org/ontology/Album> ;
+                         :albumDiGenere :BoomBap ,
+                                        :PopRap ;
+                         :contieneCanzone :Eminem-Stan ,
+                                          :Eminem-The_Way_I_Am ,
+                                          :Eminem-Who_Knew ;
+                         :hannoDiPubblicazione 2000 ;
+                         rdfs:comment "Album di Eminem"@it ;
+                         rdfs:label "The_Marshall_Mathers_LP" .
+
+
+###  http://www.music.com/brani/The_Slim_Shady_LP
+:The_Slim_Shady_LP rdf:type owl:NamedIndividual ,
+                            <http://purl.org/ontology/mo/album> ,
+                            :Album ,
+                            <https://dbpedia.org/ontology/Album> ;
+                   :albumDiGenere :BoomBap ,
+                                  :PopRap ;
+                   :contieneCanzone :Eminem-97_Bonnie_and_Clyde ,
+                                    :Eminem-Guilty_Conscience ,
+                                    :Eminem-Paul ;
+                   :hannoDiPubblicazione 1999 ;
+                   rdfs:comment "Album di Eminem"@it ;
+                   rdfs:label "The_Slim_Shady_LP" .
+
+
+###  http://www.music.com/brani/Tickets_to_My_Downfall
+:Tickets_to_My_Downfall rdf:type owl:NamedIndividual ,
+                                 <http://purl.org/ontology/mo/album> ,
+                                 :Album ,
+                                 <https://dbpedia.org/ontology/Album> ;
+                        :albumDiGenere :PunkRock ;
+                        :contieneCanzone :MGK-Drunk_Face ,
+                                         :MGK-Lonely ,
+                                         :MGK-Title_Track ;
+                        :hannoDiPubblicazione 2020 ;
+                        rdfs:comment "Album di Machine Gun Kelly"@it ;
+                        rdfs:label "Tickets_to_My_Downfall" .
+
+
+###  http://www.music.com/brani/albumEminem
+:albumEminem rdf:type owl:NamedIndividual ,
+                      :InsiemeAlbum ;
+             :contieneAlbum :The_Death_of_Slim_Shady_Coup_de_Grace ,
+                            :The_Marshall_Mathers_LP ,
+                            :The_Slim_Shady_LP ;
+             rdfs:comment "Album di Eminem"@it ;
+             rdfs:label "albumEminem" .
+
+
+###  http://www.music.com/brani/albumMachineGunKelly
+:albumMachineGunKelly rdf:type owl:NamedIndividual ,
+                               :InsiemeAlbum ;
+                      :contieneAlbum :Hotel_Diablo ,
+                                     :Mainstream_Sellout ,
+                                     :Tickets_to_My_Downfall ;
+                      rdfs:comment "Tutti gli album di Machine Gun Kelly"@it ;
+                      rdfs:label "albumMachineGunKelly" .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+:BoomBap rdfs:comment "Sottogenere musicale Boom Bap"@it ;
+         rdfs:label "BoomBap" .
+
+
+:PopRap rdfs:comment "Sottogenere musicale Pop Rap"@it ;
+        rdfs:label "PopRap" .
+
+
+:PunkRock rdfs:comment "Sottogenere musicale Punk Rock"@it ;
+          rdfs:label "PunkRock" .
+
+
+:RockAndRoll rdfs:comment "Sottogenere musicale Rock&Roll"@it ;
+             rdfs:label "RockAndRoll" .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
